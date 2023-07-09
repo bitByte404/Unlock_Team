@@ -22,13 +22,13 @@ class Presenter(private val target: ISlipUnlock) {
     var rightSlashLineArray = ArrayList<ImageView>()
 
     //记录上一次被点亮的点的视图
-    private var lastSelectedDot: ImageView? = null
+     var lastSelectedDot: ImageView? = null
     //记录密码
-    private val passwordBuilder = StringBuilder()
+    val passwordBuilder = StringBuilder()
     //模拟密码
-    private val password = "123";
+     val password = "123";
     //记录所有点亮的控件
-    private val selectedArray = arrayListOf<ImageView>()
+    val selectedArray = arrayListOf<ImageView>()
 
 
 
@@ -67,7 +67,7 @@ class Presenter(private val target: ISlipUnlock) {
 
 
     //判断是否在点上
-    private fun isInView(x: Float, y: Float): ImageView? {
+     fun isInView(x: Float, y: Float): ImageView? {
         TODO()
     }
 
