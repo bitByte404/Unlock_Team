@@ -11,7 +11,7 @@ import com.wuliner.unlock_team.databinding.ActivityMainBinding
 class Presenter(private val target: ISlipUnlock) {
 
     //保存model
-    var modelArray = arrayListOf<Model>()
+    var modelsArray = arrayListOf<Model>()
     //保存dot
     var dotArray = ArrayList<ImageView>()
     //保存竖线
@@ -28,7 +28,7 @@ class Presenter(private val target: ISlipUnlock) {
     //记录密码
     private val passwordBuilder = StringBuilder()
     //模拟密码
-    private val password = "123"
+    private val password = "123";
     //记录所有点亮的控件
     private val selectedArray = arrayListOf<ImageView>()
 
@@ -76,7 +76,7 @@ class Presenter(private val target: ISlipUnlock) {
             if (dotView != null) {
                 //判断是否是第一个点
                 if (lastSelectedDot == null) {
-                    dotView.visibility = View.VISIBLE
+                    target.changeVisiblity(dotView,true)
                     lastSelectedDot = dotView
                     //记录密码
                     passwordBuilder.append(dotView.tag as String)
@@ -108,15 +108,12 @@ class Presenter(private val target: ISlipUnlock) {
         }
     }
 
-
-
-
-
     fun actionUp(event: MotionEvent, binding: ActivityMainBinding) {
         //判断密码是否正确
         if (passwordBuilder.toString() == password) {
             //密码正确
             target.changeWord("密码解锁成功")
+            passwordBuilder.clear()
         } else {
             target.changeWord("密码解锁失败")
             //切换图片
@@ -125,19 +122,19 @@ class Presenter(private val target: ISlipUnlock) {
                 for (model in modelArray) {
                     if (model.imageView == it) {
                         target.changeColor(model, false)
+                        passwordBuilder.clear()
                         break
                     }
                 }
             }
         }
-        passwordBuilder.clear()
     }
 
     fun postDalyed() {
         Handler().postDelayed(
             {
                 selectedArray.forEach {
-                    target.changeVisiblity(it,false)
+                    it.visibility = View.INVISIBLE
                     //找到这个控件对应的model
                     for (model in modelArray) {
                         if (model.imageView == it) {
