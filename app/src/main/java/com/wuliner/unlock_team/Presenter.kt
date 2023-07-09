@@ -94,8 +94,8 @@ class Presenter(private val target: ISlipUnlock) {
                         binding.container.findViewWithTag<ImageView>("$lineTag")
                     if (lineView != null) {
                         //有路线
-                        dotView.visibility = View.VISIBLE
-                        lineView.visibility = View.VISIBLE
+                        target.changeVisiblity(dotView,true)
+                        target.changeVisiblity(lineView,true)
                         lastSelectedDot = dotView
                         //记录密码
                         passwordBuilder.append(dotView.tag as String)
