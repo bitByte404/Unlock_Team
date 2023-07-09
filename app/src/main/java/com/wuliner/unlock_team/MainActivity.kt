@@ -32,30 +32,22 @@ class MainActivity : AppCompatActivity(),ISlipUnlock {
 
         //给容器添加触摸事件
         binding.container.setOnTouchListener { v, event ->
-            presenter.touchEvent(event, binding)
-            true
+            presenter.touchEvent(event, binding); true
         }
     }
 
 
     override fun changeColor(model: Model, ifRight: Boolean) {
-        if (ifRight){
-            model.imageView.setImageResource(model.rightPicture)
-        }else{
-            model.imageView.setImageResource(model.wrongImage)
-        }
+        if (ifRight) model.imageView.setImageResource(model.rightPicture)
+        else model.imageView.setImageResource(model.wrongImage)
     }
 
-    override fun changeWord(msg: String) {
-        alertTitle.text = msg
-    }
+    override fun changeWord(msg: String){ alertTitle.text = msg }
+
 
     override fun changeVisiblity(imageView: ImageView, isVisible: Boolean) {
-        if (isVisible){
-            imageView.visibility = View.VISIBLE
-        }else{
-            imageView.visibility = View.INVISIBLE
-        }
+        if (isVisible) imageView.visibility = View.VISIBLE
+        else imageView.visibility = View.INVISIBLE
     }
 
     override fun numberPwdShow(userNum: String) {

@@ -41,23 +41,12 @@ class Presenter(private val target: ISlipUnlock) {
 
     fun touchEvent(event: MotionEvent, binding: ActivityMainBinding) {
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                actionDown(event, binding)
-            }
-            MotionEvent.ACTION_MOVE -> {
-                actionMove(event, binding)
-            }
-            MotionEvent.ACTION_UP -> {
-                actionUp(event, binding)
-                postDalyed()
-            }
+            MotionEvent.ACTION_DOWN -> actionDown(event, binding)
+            MotionEvent.ACTION_MOVE -> actionMove(event, binding)
+            MotionEvent.ACTION_UP -> {actionUp(event, binding); postDalyed()}
         }
     }
 
-
-    /**
-     * 数据处理
-     */
 
     fun actionDown(event: MotionEvent, binding: ActivityMainBinding) {
         //判断触摸点是否在原点内部
@@ -94,11 +83,9 @@ class Presenter(private val target: ISlipUnlock) {
                     val lastTag = (lastSelectedDot!!.tag as String).toInt()
                     val currentTag = (dotView.tag as String).toInt()
                     //形成线的tag small*10 +big
-                    val lineTag =
-                        if (lastTag < currentTag) lastTag * 10 + currentTag else currentTag * 10 + lastTag
+                    val lineTag = if (lastTag < currentTag) lastTag * 10 + currentTag else currentTag * 10 + lastTag
                     //获取lineTag对应的控件
-                    val lineView =
-                        binding.container.findViewWithTag<ImageView>("$lineTag")
+                    val lineView = binding.container.findViewWithTag<ImageView>("$lineTag")
                     if (lineView != null) {
                         //有路线
                         target.changeVisiblity(dotView,true)
@@ -117,10 +104,8 @@ class Presenter(private val target: ISlipUnlock) {
 
     fun actionUp(event: MotionEvent, binding: ActivityMainBinding) {
         //判断密码是否正确
-        if (passwordBuilder.toString() == password) {
-            //密码正确
-            target.changeWord("密码解锁成功")
-        } else {
+        if (passwordBuilder.toString() == password) target.changeWord("密码解锁成功")   //密码正确
+        else {
             target.changeWord("密码解锁失败")
             //切换图片
             selectedArray.forEach {
@@ -138,9 +123,8 @@ class Presenter(private val target: ISlipUnlock) {
 
     fun postDalyed() {
         Handler().postDelayed(
-            {
-                selectedArray.forEach {
-                    target.changeVisiblity(it,false)
+            { selectedArray.forEach {
+                target.changeVisiblity(it,false)
                     //找到这个控件对应的model
                     for (model in modelArray) {
                         if (model.imageView == it) {
@@ -156,11 +140,7 @@ class Presenter(private val target: ISlipUnlock) {
 
     //判断是否在点上
     fun isInView(x: Float, y: Float): ImageView? {
-        dotArray.forEach {
-            if ((x >= it.left && x <= it.right) && (y >= it.top && y <= it.bottom)) {
-                return it
-            }
-        }
+        dotArray.forEach { if ((x >= it.left && x <= it.right) && (y >= it.top && y <= it.bottom))  return it }
         return null
     }
 
@@ -179,9 +159,8 @@ class Presenter(private val target: ISlipUnlock) {
             binding.dot8,
             binding.dot9
         )
-        dotArray.forEach {
-            modelArray.add(Model(it, R.drawable.dot_normal, R.drawable.dot_selected))
-        }
+        dotArray.forEach{ modelArray.add(Model(it, R.drawable.dot_normal, R.drawable.dot_selected)) }
+
         //竖线
         verticalLineArray = arrayListOf(
             binding.line14,
@@ -191,9 +170,7 @@ class Presenter(private val target: ISlipUnlock) {
             binding.line58,
             binding.line69
         )
-        verticalLineArray.forEach {
-            modelArray.add(Model(it, R.drawable.line_1_normal, R.drawable.line_1_error))
-        }
+        verticalLineArray.forEach { modelArray.add(Model(it, R.drawable.line_1_normal, R.drawable.line_1_error)) }
         //横线
         landscapeLineArray = arrayListOf(
             binding.line12,
@@ -203,22 +180,14 @@ class Presenter(private val target: ISlipUnlock) {
             binding.line78,
             binding.line89
         )
-        landscapeLineArray.forEach {
-            modelArray.add(Model(it, R.drawable.line_2_normal, R.drawable.line_2_error))
-        }
+        landscapeLineArray.forEach { modelArray.add(Model(it, R.drawable.line_2_normal, R.drawable.line_2_error)) }
         //左斜
         leftSlashLineArray =
             arrayListOf(binding.line24, binding.line35, binding.line57, binding.line68)
-        leftSlashLineArray.forEach {
-            modelArray.add(Model(it, R.drawable.line_4_normal, R.drawable.line_4_error))
-        }
+        leftSlashLineArray.forEach { modelArray.add(Model(it, R.drawable.line_4_normal, R.drawable.line_4_error)) }
         //右斜
-        rightSlashLineArray =
-            arrayListOf(binding.line15, binding.line26, binding.line48, binding.line59)
-        rightSlashLineArray.forEach {
-            modelArray.add(Model(it, R.drawable.line_3_normal, R.drawable.line_3_error))
-        }
-
+        rightSlashLineArray = arrayListOf(binding.line15, binding.line26, binding.line48, binding.line59)
+        rightSlashLineArray.forEach { modelArray.add(Model(it, R.drawable.line_3_normal, R.drawable.line_3_error)) }
     }
 
     fun buttonClick(button: Button){
