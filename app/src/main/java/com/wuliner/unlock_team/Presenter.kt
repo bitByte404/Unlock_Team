@@ -74,6 +74,7 @@ class Presenter(private val target: ISlipUnlock) {
         //处理在点亮的点内部触发move事件
         if (lastSelectedDot != dotView) {
             if (dotView != null) {
+                if (dotView.visibility == View.VISIBLE) return
                 //判断是否是第一个点
                 if (lastSelectedDot == null) {
                     target.changeVisiblity(dotView,true)
