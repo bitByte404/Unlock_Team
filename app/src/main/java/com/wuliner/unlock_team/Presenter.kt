@@ -15,16 +15,34 @@ class Presenter(private val target: ISlipUnlock) {
     fun touchEvent(event: MotionEvent, binding: ActivityMainBinding) {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                model.actionDown(event,binding)
+                actionDown(event,binding)
             }
             MotionEvent.ACTION_MOVE -> {
-                model.actionMove(event, binding)
+                actionMove(event, binding)
             }
             MotionEvent.ACTION_UP -> {
-                model.actionUp(event, binding)
-                model.postDalyed()
+                actionUp(event, binding)
+                postDalyed()
             }
         }
+    }
+
+
+    /**
+     * 数据处理
+     */
+
+    fun actionDown(event: MotionEvent, binding: ActivityMainBinding) {
+    }
+
+    fun actionMove(event: MotionEvent, binding: ActivityMainBinding) {
+    }
+
+    fun actionUp(event: MotionEvent, binding: ActivityMainBinding) {
+    }
+
+    fun postDalyed(){
+
     }
 
 }

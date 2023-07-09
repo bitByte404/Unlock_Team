@@ -43,22 +43,7 @@ class Model {
         )
     }
 
-    /**
-     * 数据处理
-     */
 
-    fun actionDown(event: MotionEvent, binding: ActivityMainBinding) {
-    }
-
-    fun actionMove(event: MotionEvent, binding: ActivityMainBinding) {
-    }
-
-    fun actionUp(event: MotionEvent, binding: ActivityMainBinding) {
-    }
-
-    fun postDalyed(){
-
-    }
 
     /**
      * 判断某个触摸点是否在某个原点内部
