@@ -3,6 +3,7 @@ package com.wuliner.unlock_team
 import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import com.example.slipunlock.Model
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
@@ -29,11 +30,14 @@ class Presenter(private val target: ISlipUnlock) {
     private val passwordBuilder = StringBuilder()
     //模拟密码
     private var password = "123"
+    //数字密码
+    private val numPassword = "123456"
     //记录所有点亮的控件
     private val selectedArray = arrayListOf<ImageView>()
     //记录错误次数
     var wrongTimes = 0
-
+    //用户输入的number密码
+    var userNum:StringBuilder = StringBuilder()
 
     fun touchEvent(event: MotionEvent, binding: ActivityMainBinding) {
         when (event.action) {
@@ -215,6 +219,22 @@ class Presenter(private val target: ISlipUnlock) {
             modelArray.add(Model(it, R.drawable.line_3_normal, R.drawable.line_3_error))
         }
 
+    }
+
+    fun buttonClick(button: Button){
+        val index:Int = button.id.toString().substring(1).toInt()
+        if (index >=0 || index < 10) {
+            userNum.append(index.toString())
+            target.numberPwdShow(userNum.toString())
+        }
+        if (index == 10) {
+            userNum.append("\b")
+            target.numberPwdShow(userNum.toString())
+        }
+        if (index == 11) {
+            if (userNum.toString() == numPassword)  target.numberPwdShow("密码正确")
+            else target.numberPwdShow("密码错误")
+        }
     }
 
 }

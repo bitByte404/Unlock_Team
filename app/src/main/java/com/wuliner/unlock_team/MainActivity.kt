@@ -57,4 +57,8 @@ class MainActivity : AppCompatActivity(),ISlipUnlock {
             imageView.visibility = View.INVISIBLE
         }
     }
+
+    override fun numberPwdShow(userNum: String) {
+        TODO("Not yet implemented")
+    }
 }
