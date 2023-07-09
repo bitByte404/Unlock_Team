@@ -366,7 +366,6 @@
         android:id="@+id/textView"
         android:layout_width="166dp"
         android:layout_height="72dp"
-        android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
