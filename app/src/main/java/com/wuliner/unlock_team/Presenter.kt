@@ -58,6 +58,10 @@ class Presenter(private val target: ISlipUnlock) {
     fun actionMove(event: MotionEvent, binding: ActivityMainBinding) {
     }
 
+
+
+
+
     fun actionUp(event: MotionEvent, binding: ActivityMainBinding) {
     }
 
