@@ -136,7 +136,7 @@ class Presenter(private val target: ISlipUnlock) {
                     it.visibility = View.INVISIBLE
                     //找到这个控件对应的model
                     for (model in modelArray) {
-                        if (model.view == it) {
+                        if (model.imageView == it) {
                             target.changeColor(model,true)
                             break
                         }
