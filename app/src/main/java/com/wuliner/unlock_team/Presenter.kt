@@ -75,8 +75,8 @@ class Presenter(private val target: ISlipUnlock) {
             if (dotView != null) {
                 //判断是否是第一个点
                 if (lastSelectedDot == null) {
-                    target.changeVisiblity(dotView,true)
-                    target.changeVisiblity(dotView,true)
+                    dotView.visibility = View.VISIBLE
+                    lastSelectedDot = dotView
                     //记录密码
                     passwordBuilder.append(dotView.tag as String)
                     selectedArray.add(dotView)
@@ -93,8 +93,8 @@ class Presenter(private val target: ISlipUnlock) {
                         binding.container.findViewWithTag<ImageView>("$lineTag")
                     if (lineView != null) {
                         //有路线
-                        target.changeVisiblity(dotView,true)
-                        target.changeVisiblity(lineView,true)
+                        dotView.visibility = View.VISIBLE
+                        lineView.visibility = View.VISIBLE
                         lastSelectedDot = dotView
                         //记录密码
                         passwordBuilder.append(dotView.tag as String)
