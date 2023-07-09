@@ -28,9 +28,11 @@ class Presenter(private val target: ISlipUnlock) {
     //记录密码
     private val passwordBuilder = StringBuilder()
     //模拟密码
-    private val password = "123";
+    private var password = "123"
     //记录所有点亮的控件
     private val selectedArray = arrayListOf<ImageView>()
+    //记录错误次数
+    var wrongTimes = 0
 
 
     fun touchEvent(event: MotionEvent, binding: ActivityMainBinding) {

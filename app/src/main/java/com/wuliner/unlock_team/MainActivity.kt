@@ -10,9 +10,7 @@ import com.example.slipunlock.Model
 
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
-class MainActivity(
-
-) : AppCompatActivity(),ISlipUnlock {
+class MainActivity : AppCompatActivity(),ISlipUnlock {
 
     override lateinit var binding: ActivityMainBinding
     //保存presenter对象
