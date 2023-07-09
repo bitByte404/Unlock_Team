@@ -58,7 +58,7 @@ class Presenter(private val target: ISlipUnlock) {
         val dotView = isInView(event.x, event.y)
         if (dotView != null) {
             //点亮原点
-            dotView.visibility = View.VISIBLE
+            target.changeVisiblity(dotView,true)
             //记录下来
             lastSelectedDot = dotView
             //记录密码
@@ -113,7 +113,6 @@ class Presenter(private val target: ISlipUnlock) {
         if (passwordBuilder.toString() == password) {
             //密码正确
             target.changeWord("密码解锁成功")
-            passwordBuilder.clear()
         } else {
             target.changeWord("密码解锁失败")
             //切换图片
@@ -122,19 +121,19 @@ class Presenter(private val target: ISlipUnlock) {
                 for (model in modelArray) {
                     if (model.imageView == it) {
                         target.changeColor(model, false)
-                        passwordBuilder.clear()
                         break
                     }
                 }
             }
         }
+        passwordBuilder.clear()
     }
 
     fun postDalyed() {
         Handler().postDelayed(
             {
                 selectedArray.forEach {
-                    it.visibility = View.INVISIBLE
+                    target.changeVisiblity(it,true)
                     //找到这个控件对应的model
                     for (model in modelArray) {
                         if (model.imageView == it) {
