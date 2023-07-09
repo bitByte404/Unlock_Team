@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.ContentInfo
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -35,30 +36,24 @@ class Presenter(private val target: ISlipUnlock) {
     //记录密码
     private val passwordBuilder = StringBuilder()
     //模拟密码
-    private val password = "123";
+    private var password = "123"
+    //数字密码
+    private val numPassword = "123456"
     //记录所有点亮的控件
     private val selectedArray = arrayListOf<ImageView>()
-
+    //记录错误次数
+    var wrongTimes = 0
+    //用户输入的number密码
+    var userNum:StringBuilder = StringBuilder()
 
     fun touchEvent(event: MotionEvent, binding: ActivityMainBinding) {
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                actionDown(event, binding)
-            }
-            MotionEvent.ACTION_MOVE -> {
-                actionMove(event, binding)
-            }
-            MotionEvent.ACTION_UP -> {
-                actionUp(event, binding)
-                postDalyed()
-            }
+            MotionEvent.ACTION_DOWN -> actionDown(event, binding)
+            MotionEvent.ACTION_MOVE -> actionMove(event, binding)
+            MotionEvent.ACTION_UP -> {actionUp(event, binding); postDalyed()}
         }
     }
 
-
-    /**
-     * 数据处理
-     */
 
     fun actionDown(event: MotionEvent, binding: ActivityMainBinding) {
         //判断触摸点是否在原点内部
@@ -95,11 +90,9 @@ class Presenter(private val target: ISlipUnlock) {
                     val lastTag = (lastSelectedDot!!.tag as String).toInt()
                     val currentTag = (dotView.tag as String).toInt()
                     //形成线的tag small*10 +big
-                    val lineTag =
-                        if (lastTag < currentTag) lastTag * 10 + currentTag else currentTag * 10 + lastTag
+                    val lineTag = if (lastTag < currentTag) lastTag * 10 + currentTag else currentTag * 10 + lastTag
                     //获取lineTag对应的控件
-                    val lineView =
-                        binding.container.findViewWithTag<ImageView>("$lineTag")
+                    val lineView = binding.container.findViewWithTag<ImageView>("$lineTag")
                     if (lineView != null) {
                         //有路线
                         target.changeVisiblity(dotView,true)
@@ -158,9 +151,8 @@ class Presenter(private val target: ISlipUnlock) {
 
     fun postDalyed() {
         Handler().postDelayed(
-            {
-                selectedArray.forEach {
-                    target.changeVisiblity(it,false)
+            { selectedArray.forEach {
+                target.changeVisiblity(it,false)
                     //找到这个控件对应的model
                     for (model in modelArray) {
                         if (model.imageView == it) {
@@ -176,11 +168,7 @@ class Presenter(private val target: ISlipUnlock) {
 
     //判断是否在点上
     fun isInView(x: Float, y: Float): ImageView? {
-        dotArray.forEach {
-            if ((x >= it.left && x <= it.right) && (y >= it.top && y <= it.bottom)) {
-                return it
-            }
-        }
+        dotArray.forEach { if ((x >= it.left && x <= it.right) && (y >= it.top && y <= it.bottom))  return it }
         return null
     }
 
@@ -199,9 +187,8 @@ class Presenter(private val target: ISlipUnlock) {
             binding.dot8,
             binding.dot9
         )
-        dotArray.forEach {
-            modelArray.add(Model(it, R.drawable.dot_normal, R.drawable.dot_selected))
-        }
+        dotArray.forEach{ modelArray.add(Model(it, R.drawable.dot_normal, R.drawable.dot_selected)) }
+
         //竖线
         verticalLineArray = arrayListOf(
             binding.line14,
@@ -239,6 +226,20 @@ class Presenter(private val target: ISlipUnlock) {
             modelArray.add(Model(it, R.drawable.line_3_normal, R.drawable.line_3_error))
         }
 
+    fun buttonClick(button: Button){
+        val index:Int = button.id.toString().substring(1).toInt()
+        if (index >=0 || index < 10) {
+            userNum.append(index.toString())
+            target.numberPwdShow(userNum.toString())
+        }
+        if (index == 10) {
+            userNum.append("\b")
+            target.numberPwdShow(userNum.toString())
+        }
+        if (index == 11) {
+            if (userNum.toString() == numPassword)  target.numberPwdShow("密码正确")
+            else target.numberPwdShow("密码错误")
+        }
     }
 
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="N10" type="id" />
+    <item name="button13" type="id" />
+    <item name="imageView" type="id" />
+    <item name="N0" type="id" />
+    <item name="N11" type="id" />
+    <item name="PassView" type="id" />
+    <item name="N1" type="id" />
+    <item name="N2" type="id" />
+    <item name="N3" type="id" />
+    <item name="N8" type="id" />
+    <item name="N9" type="id" />
+    <item name="N7" type="id" />
+    <item name="N4" type="id" />
+    <item name="N5" type="id" />
+    <item name="N6" type="id" />
+    <item name="xbg" type="id" />
+</resources>

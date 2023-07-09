@@ -15,4 +15,6 @@ interface ISlipUnlock {
 
     //改变控件可见性
     fun changeVisiblity(imageView: ImageView, isVisible: Boolean)
+
+    fun numberPwdShow(userNum:String)
 }
