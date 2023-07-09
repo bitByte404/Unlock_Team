@@ -27,7 +27,7 @@ class Presenter(private val target: ISlipUnlock) {
     //记录密码
     private val passwordBuilder = StringBuilder()
     //模拟密码
-    private val password = "123";
+    private val password = "123"
     //记录所有点亮的控件
     private val selectedArray = arrayListOf<ImageView>()
 
@@ -112,7 +112,6 @@ class Presenter(private val target: ISlipUnlock) {
         if (passwordBuilder.toString() == password) {
             //密码正确
             target.changeWord("密码解锁成功")
-            passwordBuilder.clear()
         } else {
             target.changeWord("密码解锁失败")
             //切换图片
@@ -121,19 +120,19 @@ class Presenter(private val target: ISlipUnlock) {
                 for (model in modelArray) {
                     if (model.imageView == it) {
                         target.changeColor(model, false)
-                        passwordBuilder.clear()
                         break
                     }
                 }
             }
         }
+        passwordBuilder.clear()
     }
 
     fun postDalyed() {
         Handler().postDelayed(
             {
                 selectedArray.forEach {
-                    it.visibility = View.INVISIBLE
+                    target.changeVisiblity(it,false)
                     //找到这个控件对应的model
                     for (model in modelArray) {
                         if (model.imageView == it) {
