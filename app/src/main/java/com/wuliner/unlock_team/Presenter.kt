@@ -1,41 +1,33 @@
-package com.example.slipunlock
+package com.wuliner.unlock_team
 
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
-import com.wuliner.unlock_team.ISlipUnlock
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
 
 class Presenter(private val target: ISlipUnlock) {
 
     //保存model
-    var modelsArray = arrayListOf<Model>()
-
+    var modelArray = arrayListOf<Model>()
     //保存dot
     var dotArray = ArrayList<ImageView>()
-
     //保存竖线
     var verticalLineArray = ArrayList<ImageView>()
-
     //保存横线
     var landscapeLineArray = ArrayList<ImageView>()
-
     //保存左斜线
     var leftSlashLineArray = ArrayList<ImageView>()
-
     //保存右斜线
     var rightSlashLineArray = ArrayList<ImageView>()
 
     //记录上一次被点亮的点的视图
     private var lastSelectedDot: ImageView? = null
-
     //记录密码
     private val passwordBuilder = StringBuilder()
-
     //模拟密码
     private val password = "123";
-
     //记录所有点亮的控件
     private val selectedArray = arrayListOf<ImageView>()
 
@@ -116,16 +108,47 @@ class Presenter(private val target: ISlipUnlock) {
     }
 
     fun actionUp(event: MotionEvent, binding: ActivityMainBinding) {
-
+        //判断密码是否正确
+        if (passwordBuilder.toString() == password) {
+            //密码正确
+            target.changeWord("密码解锁成功")
+            passwordBuilder.clear()
+        } else {
+            target.changeWord("密码解锁失败")
+            //切换图片
+            selectedArray.forEach {
+                //找到这个控件对应的model
+                for (model in modelArray) {
+                    if (model.imageView == it) {
+                        target.changeColor(model, false)
+                        passwordBuilder.clear()
+                        break
+                    }
+                }
+            }
+        }
     }
 
     fun postDalyed() {
-
+        Handler().postDelayed(
+            {
+                selectedArray.forEach {
+                    it.visibility = View.INVISIBLE
+                    //找到这个控件对应的model
+                    for (model in modelArray) {
+                        if (model.view == it) {
+                            target.changeColor(model,true)
+                            break
+                        }
+                    }
+                }
+            }, 500
+        )
     }
 
 
     //判断是否在点上
-    private fun isInView(x: Float, y: Float): ImageView? {
+    fun isInView(x: Float, y: Float): ImageView? {
         dotArray.forEach {
             if ((x >= it.left && x <= it.right) && (y >= it.top && y <= it.bottom)) {
                 return it
@@ -133,9 +156,62 @@ class Presenter(private val target: ISlipUnlock) {
         }
         return null
     }
-}
 
-//初始化数据
-fun initData() {
+    //初始化数据
+
+    fun initData(binding: ActivityMainBinding) {
+        //将九个点的视图保存到数组中
+        dotArray = arrayListOf(
+            binding.dot1,
+            binding.dot2,
+            binding.dot3,
+            binding.dot4,
+            binding.dot5,
+            binding.dot6,
+            binding.dot7,
+            binding.dot8,
+            binding.dot9
+        )
+        dotArray.forEach {
+            modelArray.add(Model(it, R.drawable.dot_normal, R.drawable.dot_selected))
+        }
+        //竖线
+        verticalLineArray = arrayListOf(
+            binding.line14,
+            binding.line25,
+            binding.line36,
+            binding.line47,
+            binding.line58,
+            binding.line69
+        )
+        verticalLineArray.forEach {
+            modelArray.add(Model(it, R.drawable.line_1_normal, R.drawable.line_1_error))
+        }
+        //横线
+        landscapeLineArray = arrayListOf(
+            binding.line12,
+            binding.line23,
+            binding.line45,
+            binding.line56,
+            binding.line78,
+            binding.line89
+        )
+        landscapeLineArray.forEach {
+            modelArray.add(Model(it, R.drawable.line_2_normal, R.drawable.line_2_error))
+        }
+        //左斜
+        leftSlashLineArray =
+            arrayListOf(binding.line24, binding.line35, binding.line57, binding.line68)
+        leftSlashLineArray.forEach {
+            modelArray.add(Model(it, R.drawable.line_4_normal, R.drawable.line_4_error))
+        }
+        //右斜
+        rightSlashLineArray =
+            arrayListOf(binding.line15, binding.line26, binding.line48, binding.line59)
+        rightSlashLineArray.forEach {
+            modelArray.add(Model(it, R.drawable.line_3_normal, R.drawable.line_3_error))
+        }
+
+    }
 
 }
