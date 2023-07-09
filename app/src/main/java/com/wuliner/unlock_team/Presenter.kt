@@ -4,6 +4,7 @@ import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import com.example.slipunlock.Model
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
 
@@ -75,7 +76,7 @@ class Presenter(private val target: ISlipUnlock) {
             if (dotView != null) {
                 //判断是否是第一个点
                 if (lastSelectedDot == null) {
-                    dotView.visibility = View.VISIBLE
+                    target.changeVisiblity(dotView,true)
                     lastSelectedDot = dotView
                     //记录密码
                     passwordBuilder.append(dotView.tag as String)
