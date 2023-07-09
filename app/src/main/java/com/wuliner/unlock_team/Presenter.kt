@@ -11,7 +11,7 @@ import com.wuliner.unlock_team.databinding.ActivityMainBinding
 class Presenter(private val target: ISlipUnlock) {
 
     //保存model
-    var modelsArray = arrayListOf<Model>()
+    var modelArray = arrayListOf<Model>()
     //保存dot
     var dotArray = ArrayList<ImageView>()
     //保存竖线
