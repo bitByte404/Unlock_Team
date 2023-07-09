@@ -3,6 +3,7 @@ package com.wuliner.unlock_team
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.slipunlock.Model
@@ -39,14 +40,22 @@ class MainActivity(
     }
 
     override fun changeColor(model: Model, ifRight: Boolean) {
-        TODO("Not yet implemented")
+        if (!ifRight){
+            model.imageView.setImageResource(model.wrongImage)
+        }else{
+            model.imageView.setImageResource(model.rightPicture)
+        }
     }
 
     override fun changeWord(msg: String) {
-        TODO("Not yet implemented")
+        alertTitle.text = msg
     }
 
     override fun changeVisiblity(imageView: ImageView, isVisible: Boolean) {
-        TODO("Not yet implemented")
+        if (isVisible){
+            imageView.visibility = View.VISIBLE
+        }else{
+            imageView.visibility = View.INVISIBLE
+        }
     }
 }
