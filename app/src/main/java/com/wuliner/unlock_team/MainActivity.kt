@@ -29,7 +29,7 @@ class MainActivity(
         setContentView(binding.root)
 
         //初始化数据
-        presenter.initData()
+        presenter.initData(binding)
 
 
         //给容器添加触摸事件
