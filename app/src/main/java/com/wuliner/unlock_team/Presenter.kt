@@ -1,16 +1,36 @@
 package com.example.slipunlock
 
 import android.view.MotionEvent
+import android.widget.ImageView
 import com.wuliner.unlock_team.ISlipUnlock
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
+
 class Presenter(private val target: ISlipUnlock) {
 
-    private val model = Model()
+    //保存model
+    var modelsArray = arrayListOf<Model>()
+    //保存dot
+    var dotArray = ArrayList<ImageView>()
+    //保存竖线
+    var verticalLineArray = ArrayList<ImageView>()
+    //保存横线
+    var landscapeLineArray = ArrayList<ImageView>()
+    //保存左斜线
+    var leftSlashLineArray = ArrayList<ImageView>()
+    //保存右斜线
+    var rightSlashLineArray = ArrayList<ImageView>()
 
-    fun saveDotArray(binding: ActivityMainBinding){
-        model.saveDotArray(binding)
-    }
+    //记录上一次被点亮的点的视图
+    private var lastSelectedDot: ImageView? = null
+    //记录密码
+    private val passwordBuilder = StringBuilder()
+    //模拟密码
+    private val password = "123";
+    //记录所有点亮的控件
+    private val selectedArray = arrayListOf<ImageView>()
+
+
 
     fun touchEvent(event: MotionEvent, binding: ActivityMainBinding) {
         when (event.action) {
@@ -42,6 +62,17 @@ class Presenter(private val target: ISlipUnlock) {
     }
 
     fun postDalyed(){
+
+    }
+
+
+    //判断是否在点上
+    private fun isInView(x: Float, y: Float): ImageView? {
+        TODO()
+    }
+
+    //初始化数据
+    fun initData() {
 
     }
 

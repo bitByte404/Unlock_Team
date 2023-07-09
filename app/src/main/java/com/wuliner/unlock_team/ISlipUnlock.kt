@@ -1,10 +1,18 @@
 package com.wuliner.unlock_team
 
+import android.widget.ImageView
 import com.example.slipunlock.Model
+import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
 interface ISlipUnlock {
-    //切换图片
-    fun changeImage(model: Model, rightImage: Int, wrongImage: Int)
-    //切换可见状态
-    fun changeVisible(model: Model, ifVisible: Boolean)
+    var binding: ActivityMainBinding
+
+    //改变颜色
+    fun changeColor(model: Model, ifRight: Boolean)
+
+    //改变标题的字
+    fun changeWord(msg: String)
+
+    //改变控件可见性
+    fun changeVisiblity(imageView: ImageView, isVisible: Boolean)
 }
