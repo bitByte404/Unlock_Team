@@ -41,10 +41,10 @@ class MainActivity(
 
 
     override fun changeColor(model: Model, ifRight: Boolean) {
-        if (!ifRight){
-            model.imageView.setImageResource(model.wrongImage)
-        }else{
+        if (ifRight){
             model.imageView.setImageResource(model.rightPicture)
+        }else{
+            model.imageView.setImageResource(model.wrongImage)
         }
     }
 
