@@ -1,7 +1,6 @@
 package com.wuliner.unlock_team
 
 import android.widget.ImageView
-import com.example.slipunlock.Model
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
 interface ISlipUnlock {
