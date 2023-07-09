@@ -30,7 +30,7 @@ class MainActivity(
 
         //初始化数据
         presenter.initData(binding)
-
+        alertTitle = binding.textView
 
         //给容器添加触摸事件
         binding.container.setOnTouchListener { v, event ->

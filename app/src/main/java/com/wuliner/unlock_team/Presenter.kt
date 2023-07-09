@@ -134,7 +134,7 @@ class Presenter(private val target: ISlipUnlock) {
         Handler().postDelayed(
             {
                 selectedArray.forEach {
-                    target.changeVisiblity(it,true)
+                    target.changeVisiblity(it,false)
                     //找到这个控件对应的model
                     for (model in modelArray) {
                         if (model.imageView == it) {
