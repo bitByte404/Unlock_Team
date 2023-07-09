@@ -1,9 +1,14 @@
 package com.wuliner.unlock_team
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Handler
+import android.view.ContentInfo
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.example.slipunlock.Model
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
@@ -22,6 +27,8 @@ class Presenter(private val target: ISlipUnlock) {
     var leftSlashLineArray = ArrayList<ImageView>()
     //保存右斜线
     var rightSlashLineArray = ArrayList<ImageView>()
+    //记录错误次数
+    var wrongTime = 5
 
     //记录上一次被点亮的点的视图
     private var lastSelectedDot: ImageView? = null
@@ -114,8 +121,27 @@ class Presenter(private val target: ISlipUnlock) {
         if (passwordBuilder.toString() == password) {
             //密码正确
             target.changeWord("密码解锁成功")
+            wrongTime = 5
         } else {
+            wrongTime--
             target.changeWord("密码解锁失败")
+            AlertDialog.Builder(target as AppCompatActivity).apply {
+                setTitle("温馨提示")
+                if (wrongTime != 0) {
+                    setMessage("您已输出错误密码${5 - wrongTime}次，还有${wrongTime}次将锁定")
+                } else {
+                    setMessage("密码错误此时过多，已锁定")
+                }
+                setCancelable(false)
+                setPositiveButton("重新输入") { dialog, which ->
+
+                }
+                setNegativeButton("找回密码") { dialog, which ->
+                    target.startActivity(Intent(target as AppCompatActivity, LoginActivity::class.java))
+                }
+                show()
+            }
+
             //切换图片
             selectedArray.forEach {
                 //找到这个控件对应的model
