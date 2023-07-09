@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.slipunlock.Model
-import com.example.slipunlock.Presenter
+
 import com.wuliner.unlock_team.databinding.ActivityMainBinding
 
 class MainActivity(
