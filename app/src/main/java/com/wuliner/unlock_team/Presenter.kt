@@ -107,6 +107,10 @@ class Presenter(private val target: ISlipUnlock) {
         }
     }
 
+
+
+
+
     fun actionUp(event: MotionEvent, binding: ActivityMainBinding) {
         //判断密码是否正确
         if (passwordBuilder.toString() == password) {
