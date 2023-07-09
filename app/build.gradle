@@ -4,6 +4,11 @@ plugins {
 }
 
 android {
+
+    viewBinding{
+        enabled = true
+    }
+
     namespace 'com.wuliner.unlock_team'
     compileSdk 33
 
