@@ -114,7 +114,7 @@ class Presenter(private val target: ISlipUnlock) {
         if (passwordBuilder.toString() == password) {
             //密码正确
             target.changeWord("密码解锁成功")
-            wrongTime = 5
+            wrongTime = 3
         } else {
             wrongTime--
             target.changeWord("密码解锁失败")
@@ -129,7 +129,7 @@ class Presenter(private val target: ISlipUnlock) {
                 setPositiveButton("重新输入") { dialog, which ->
 
                 }
-                setNegativeButton("找回密码") { dialog, which ->
+                setNegativeButton("PIN登录") { dialog, which ->
                     target.startActivity(Intent(target as AppCompatActivity, LoginActivity::class.java))
                 }
                 show()
@@ -145,6 +145,7 @@ class Presenter(private val target: ISlipUnlock) {
                     }
                 }
             }
+
         }
         passwordBuilder.clear()
     }
@@ -242,4 +243,5 @@ class Presenter(private val target: ISlipUnlock) {
         }
     }
 
+}
 }
